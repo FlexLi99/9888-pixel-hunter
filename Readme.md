@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Алексей Филенко](https://up.htmlacademy.ru/ecmascript/4/user/9888).
-* Наставник: [Борис Бутенко](https://htmlacademy.ru/profile/id301259).
+* Наставник: [Всеволод Артемьев](https://htmlacademy.ru/profile/id459331).
 
 ---
 
