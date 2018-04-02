@@ -1,3 +1,5 @@
+const ARROW_RIGHT = 39;
+const ARROW_LEFT = 37;
 const templates = [...document.querySelectorAll(`template`)];
 const mainFrame = document.querySelector(`main.central`);
 const frameChange = (number) => {
@@ -6,8 +8,6 @@ const frameChange = (number) => {
   mainFrame.appendChild(frame.content.cloneNode(true));
 };
 const keyboardHandler = (e) => {
-  const ARROW_RIGHT = 39;
-  const ARROW_LEFT = 37;
   if (e.altKey && e.which === ARROW_RIGHT && frameNumber < templates.length - 1) {
     frameChange(++frameNumber);
   } else if (e.altKey && e.which === ARROW_LEFT && frameNumber !== 0) {
