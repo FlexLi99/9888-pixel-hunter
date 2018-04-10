@@ -1,4 +1,4 @@
-import frameChange from './frameChanger.js';
-import intro from './introFrame.js';
+import frameChange from './frame-change';
+import intro from './intro-frame';
 
 frameChange(intro);

@@ -1,6 +1,6 @@
-import frameCreateFunc from './frameCreator.js';
-import frameChange from './frameChanger.js';
-import rules from './rulesFrame.js';
+import frameCreate from './frame-create';
+import frameChange from './frame-change';
+import rules from './rules-frame';
 
 const greetingTemplate = `<div class="greeting central--blur">
                             <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -26,9 +26,9 @@ const greetingTemplate = `<div class="greeting central--blur">
                             </div>
                           </footer>`;
 
-const greeting = frameCreateFunc(greetingTemplate, `greeting`);
+const greeting = frameCreate(greetingTemplate);
 
-const nextStepHandler = () => {
+const nextStepHandler = (event) => {
   if (event.target.closest(`.greeting__continue`)) {
     frameChange(rules);
   }

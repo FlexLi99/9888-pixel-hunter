@@ -1,6 +1,6 @@
-import frameCreateFunc from './frameCreator.js';
-import frameChange from './frameChanger.js';
-import greeting from './greetingFrame.js';
+import frameCreate from './frame-create';
+import frameChange from './frame-change';
+import greeting from './greeting-frame';
 
 const introTemplate = `<div id="main" class="central__content">
                         <div class="intro">
@@ -19,9 +19,9 @@ const introTemplate = `<div id="main" class="central__content">
                         </div>
                       </footer>`;
 
-const intro = frameCreateFunc(introTemplate, `intro`);
+const intro = frameCreate(introTemplate);
 
-const nextStepHandler = () => {
+const nextStepHandler = (event) => {
   if (event.target.closest(`.intro__asterisk`)) {
     frameChange(greeting);
   }

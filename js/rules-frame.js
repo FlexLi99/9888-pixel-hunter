@@ -1,7 +1,7 @@
-import frameCreateFunc from './frameCreator.js';
-import frameChange from './frameChanger.js';
-import greeting from './greetingFrame.js';
-import firstGame from './firstGameFrame.js';
+import frameCreate from './frame-create';
+import frameChange from './frame-change';
+import greeting from './greeting-frame';
+import firstGame from './first-game-frame';
 
 const rulesTemplate = `<header class="header">
                         <div class="header__back">
@@ -38,9 +38,9 @@ const rulesTemplate = `<header class="header">
                         </div>
                       </footer>`;
 
-const rules = frameCreateFunc(rulesTemplate, `rules`);
+const rules = frameCreate(rulesTemplate);
 
-const inputHandler = () => {
+const inputHandler = (event) => {
   const target = event.target;
 
   if (!target.classList.contains(`rules__input`)) {
@@ -56,12 +56,12 @@ const inputHandler = () => {
   }
 };
 
-const submitHandler = () => {
+const submitHandler = (event) => {
   event.preventDefault();
   frameChange(firstGame);
 };
 
-const backHandler = () => {
+const backHandler = (event) => {
   if (event.target.closest(`.header__back`)) {
     frameChange(greeting);
   }

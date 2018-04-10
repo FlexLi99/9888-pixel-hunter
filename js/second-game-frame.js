@@ -1,8 +1,8 @@
-import frameCreateFunc from './frameCreator.js';
-import frameChange from './frameChanger.js';
-import stats from './statsFrame.js';
+import frameCreate from './frame-create';
+import frameChange from './frame-change';
+import thirdGame from './third-game-frame';
 
-const thirdGameTemplate = `<header class="header">
+const secondGameTemplate = `<header class="header">
                             <div class="header__back">
                               <button class="back">
                                 <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -17,16 +17,18 @@ const thirdGameTemplate = `<header class="header">
                             </div>
                           </header>
                           <div class="game">
-                            <p class="game__task">Найдите рисунок среди изображений</p>
-                            <form class="game__content  game__content--triple">
+                            <p class="game__task">Угадай, фото или рисунок?</p>
+                            <form class="game__content  game__content--wide">
                               <div class="game__option">
-                                <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-                              </div>
-                              <div class="game__option  game__option--selected">
-                                <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-                              </div>
-                              <div class="game__option">
-                                <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
+                                <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
+                                <label class="game__answer  game__answer--photo">
+                                  <input name="question1" type="radio" value="photo">
+                                  <span>Фото</span>
+                                </label>
+                                <label class="game__answer  game__answer--wide  game__answer--paint">
+                                  <input name="question1" type="radio" value="paint">
+                                  <span>Рисунок</span>
+                                </label>
                               </div>
                             </form>
                             <div class="stats">
@@ -55,14 +57,16 @@ const thirdGameTemplate = `<header class="header">
                             </div>
                           </footer>`;
 
-const thirdGame = frameCreateFunc(thirdGameTemplate, `game-3`);
+const secondGame = frameCreate(secondGameTemplate);
 
-const answerHandler = () => {
-  if (event.target.closest(`.game__option`)) {
-    frameChange(stats);
+const answerHandler = (event) => {
+  if (event.target.closest(`.game__answer`)) {
+    if (event.target.checked) {
+      frameChange(thirdGame);
+    }
   }
 };
 
-thirdGame.addEventListener(`click`, answerHandler);
+secondGame.addEventListener(`change`, answerHandler);
 
-export default thirdGame;
+export default secondGame;

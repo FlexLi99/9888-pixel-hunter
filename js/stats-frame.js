@@ -1,4 +1,4 @@
-import frameCreateFunc from './frameCreator.js';
+import frameCreate from './frame-create';
 
 const statsTemplate = `<header class="header">
                             <div class="header__back">
@@ -119,6 +119,6 @@ const statsTemplate = `<header class="header">
                             </div>
                           </footer>`;
 
-const stats = frameCreateFunc(statsTemplate, `stats`);
+const stats = frameCreate(statsTemplate);
 
 export default stats;

@@ -1,8 +1,8 @@
-import frameCreateFunc from './frameCreator.js';
-import frameChange from './frameChanger.js';
-import thirdGame from './thirdGameFrame.js';
+import frameCreate from './frame-create';
+import frameChange from './frame-change';
+import secondGame from './second-game-frame';
 
-const secondGameTemplate = `<header class="header">
+const firstGameTemplate = `<header class="header">
                             <div class="header__back">
                               <button class="back">
                                 <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -17,16 +17,27 @@ const secondGameTemplate = `<header class="header">
                             </div>
                           </header>
                           <div class="game">
-                            <p class="game__task">Угадай, фото или рисунок?</p>
-                            <form class="game__content  game__content--wide">
+                            <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+                            <form class="game__content">
                               <div class="game__option">
-                                <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
-                                <label class="game__answer  game__answer--photo">
+                                <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+                                <label class="game__answer game__answer--photo">
                                   <input name="question1" type="radio" value="photo">
                                   <span>Фото</span>
                                 </label>
-                                <label class="game__answer  game__answer--wide  game__answer--paint">
+                                <label class="game__answer game__answer--paint">
                                   <input name="question1" type="radio" value="paint">
+                                  <span>Рисунок</span>
+                                </label>
+                              </div>
+                              <div class="game__option">
+                                <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+                                <label class="game__answer  game__answer--photo">
+                                  <input name="question2" type="radio" value="photo">
+                                  <span>Фото</span>
+                                </label>
+                                <label class="game__answer  game__answer--paint">
+                                  <input name="question2" type="radio" value="paint">
                                   <span>Рисунок</span>
                                 </label>
                               </div>
@@ -37,11 +48,11 @@ const secondGameTemplate = `<header class="header">
                                 <li class="stats__result stats__result--slow"></li>
                                 <li class="stats__result stats__result--fast"></li>
                                 <li class="stats__result stats__result--correct"></li>
-                                <li class="stats__result stats__result--wrong"></li>
                                 <li class="stats__result stats__result--unknown"></li>
-                                <li class="stats__result stats__result--slow"></li>
                                 <li class="stats__result stats__result--unknown"></li>
-                                <li class="stats__result stats__result--fast"></li>
+                                <li class="stats__result stats__result--unknown"></li>
+                                <li class="stats__result stats__result--unknown"></li>
+                                <li class="stats__result stats__result--unknown"></li>
                                 <li class="stats__result stats__result--unknown"></li>
                               </ul>
                             </div>
@@ -57,16 +68,18 @@ const secondGameTemplate = `<header class="header">
                             </div>
                           </footer>`;
 
-const secondGame = frameCreateFunc(secondGameTemplate, `game-2`);
+const firstGame = frameCreate(firstGameTemplate);
 
-const answerHandler = () => {
+const answerHandler = (event) => {
+  const answers = [...firstGame.querySelectorAll(`.game__answer input`)];
+
   if (event.target.closest(`.game__answer`)) {
-    if (event.target.checked) {
-      frameChange(thirdGame);
+    if (answers.filter((answer) => answer.checked).length === 2) {
+      frameChange(secondGame);
     }
   }
 };
 
-secondGame.addEventListener(`change`, answerHandler);
+firstGame.addEventListener(`change`, answerHandler);
 
-export default secondGame;
+export default firstGame;
