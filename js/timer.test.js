@@ -1,17 +1,17 @@
 import {assert} from 'chai';
-import {gameTimer} from './timer';
+import {setGameTimer} from './timer';
 
 describe(`Testing for gameTimer function`, () => {
   it(`Time is number`, () => {
-    assert.isNumber(gameTimer(30).val);
+    assert.isNumber(setGameTimer(30).val);
   });
 
   it(`Time is not number`, () => {
-    assert.isNotNumber(gameTimer(`30`).val);
+    assert.isNotNumber(setGameTimer(`30`).val);
   });
 
   it(`Time is running`, () => {
-    const timer = gameTimer(30);
+    const timer = setGameTimer(30);
 
     assert.equal(29, timer.tick().val);
     assert.equal(28, timer.tick().val);
@@ -19,7 +19,7 @@ describe(`Testing for gameTimer function`, () => {
   });
 
   it(`Time is over`, () => {
-    const timer = gameTimer(0);
+    const timer = setGameTimer(0);
 
     assert.isFalse(timer.tick());
   });
