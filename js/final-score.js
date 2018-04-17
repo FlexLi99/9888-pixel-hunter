@@ -12,7 +12,7 @@ export const getFinalScore = (playerScore, numberLivesLeft) => {
     return false;
   }
 
-  if (playerScore.length < SCORE_LENGTH) {
+  if (playerScore.length < SCORE_LENGTH || numberLivesLeft < 0) {
     return -1;
   }
 

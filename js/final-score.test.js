@@ -20,6 +20,10 @@ describe(`Testing for final score function`, () => {
     it(`Did not answer all questions`, () => {
       assert.equal(getFinalScore([{}, {}, {}], 3), -1);
     });
+
+    it(`Player lost all life`, () => {
+      assert.equal(getFinalScore([{}, {}, {}], -1), -1);
+    });
   });
 
   describe(`Player compleate game`, () => {
