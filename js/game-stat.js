@@ -1,5 +1,4 @@
-import {initialState, infoFrames, games} from './data/game-data';
-import {frames} from './game-frames';
+import {initialState, infoFrames, scoreState} from './data/game-data';
 import frameChange from './frame-change';
 
 const LIVE_VAL = 3;
@@ -11,16 +10,8 @@ const SLOW = 2;
 const FAST_TIME = 10;
 const SLOW_TIME = 20;
 
-//  Массив структуры данных для статистики ответов
-
-export const scoreState = [];
-
-for (let i = 0; i < Object.keys(games).length; i++) {
-  scoreState.push(UNKNOWN);
-}
-
-const setScoreState = (gameResult) => {
-  scoreState[initialState.frame - Object.keys(infoFrames).length] = gameResult;
+export const setScoreState = (gameResult) => {
+  scoreState[initialState.currentFrame - Object.keys(infoFrames).length] = gameResult;
 };
 
 export const getGameStat = () => {
@@ -43,7 +34,7 @@ export const getScoreStat = () => {
     let scoreList = ``;
 
     for (let i = 0; i < scoreState.length; i++) {
-      switch (scoreState[i]) {
+      switch (scoreState[i].answerIndic) {
         case UNKNOWN:
           scoreList += `<li class="stats__result stats__result--unknown"></li>`;
           break;
@@ -75,18 +66,22 @@ export const getScoreStat = () => {
 
 export const errorAnswer = () => {
   initialState.lives = initialState.lives - 1;
-  setScoreState(WRONG);
+  setScoreState({answerResult: 0, answerTime: 0, answerIndic: WRONG});
   if (initialState.lives < 0) {
-    frameChange(frames[frames.length - 1]);
+
+    frameChange(initialState.allFrames - 1);
+  } else {
+    frameChange(++initialState.currentFrame);
   }
 };
 
 export const validAnswer = () => {
   if (initialState.time < FAST_TIME) {
-    setScoreState(FAST);
+    setScoreState({answerResult: 1, answerTime: initialState.time, answerIndic: FAST});
   } else if (initialState.time > SLOW_TIME) {
-    setScoreState(SLOW);
+    setScoreState({answerResult: 1, answerTime: initialState.time, answerIndic: SLOW});
   } else {
-    setScoreState(CORRECT);
+    setScoreState({answerResult: 1, answerTime: initialState.time, answerIndic: CORRECT});
   }
+  frameChange(++initialState.currentFrame);
 };

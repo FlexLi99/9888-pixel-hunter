@@ -1,8 +1,7 @@
 import frameCreate from './frame-create';
-import frameChange from './frame-change';
 import getHeader from './header';
-import {getScoreStat} from './game-stat';
-import {initialState, games} from './data/game-data';
+import {getScoreStat, errorAnswer, validAnswer} from './game-stat';
+import {games} from './data/game-data';
 
 const thirdGame = () => {
   const thirdGameTemplate = `${getHeader(true)}
@@ -23,15 +22,20 @@ const thirdGame = () => {
   const getTemplate = frameCreate(thirdGameTemplate);
 
   const answerHandler = (event) => {
-    if (event.target.closest(`.game__option`)) {
-      frameChange(initialState.frame++);
+    const target = event.target;
+
+    if (target.closest(`.game__option`)) {
+      if (target.matches(`.game__option--selected`)) {
+        validAnswer();
+      } else {
+        errorAnswer();
+      }
     }
   };
 
   getTemplate.addEventListener(`click`, answerHandler);
 
   return getTemplate;
-
 };
 
 export default thirdGame;

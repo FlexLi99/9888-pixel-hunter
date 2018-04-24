@@ -1,8 +1,7 @@
 import frameCreate from './frame-create';
-import frameChange from './frame-change';
 import getHeader from './header';
 import {getScoreStat, errorAnswer, validAnswer} from './game-stat';
-import {initialState, games, service} from './data/game-data';
+import {games, service} from './data/game-data';
 
 
 const firstGame = () => {
@@ -43,7 +42,6 @@ const firstGame = () => {
         } else {
           validAnswer();
         }
-        frameChange(++initialState.frame);
       }
     }
   };

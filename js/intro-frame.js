@@ -12,7 +12,7 @@ const intro = () => {
 
   const nextStepHandler = (event) => {
     if (event.target.closest(`.intro__asterisk`)) {
-      frameChange(++initialState.frame);
+      frameChange(++initialState.currentFrame);
     }
   };
 

@@ -32,12 +32,12 @@ const rules = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    frameChange(++initialState.frame);
+    frameChange(++initialState.currentFrame);
   };
 
   const backHandler = (event) => {
     if (event.target.closest(`.header__back`)) {
-      frameChange(initialState.frame = 1);
+      frameChange(initialState.currentFrame = 1);
     }
   };
 

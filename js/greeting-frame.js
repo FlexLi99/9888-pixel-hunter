@@ -17,7 +17,7 @@ const greeting = () => {
 
   const nextStepHandler = (event) => {
     if (event.target.closest(`.greeting__continue`)) {
-      frameChange(++initialState.frame);
+      frameChange(++initialState.currentFrame);
     }
   };
 
