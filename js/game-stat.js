@@ -1,5 +1,6 @@
-import {initialState, infoFrames, scoreState} from './data/game-data';
-import frameChange from './frame-change';
+import {initialState, InfoFrames} from './data/game-data';
+import {getFinalScore} from './final-score';
+import {frameChange, gameFrames, allAppFrames} from './frame-change';
 
 const LIVE_VAL = 3;
 const UNKNOWN = null;
@@ -10,12 +11,29 @@ const SLOW = 2;
 const FAST_TIME = 10;
 const SLOW_TIME = 20;
 
-export const setScoreState = (gameResult) => {
-  scoreState[initialState.currentFrame - Object.keys(infoFrames).length] = gameResult;
+//  Массив структуры данных для статистики ответов
+
+const scoreState = [];
+
+//  Массив структуры данных для хранеия результатов игры
+
+export const gamesResult = [];
+
+export const gameStat = Object.assign({}, initialState);
+
+const getGameStat = () => {
+  gameStat.gameFrames = gameFrames.length;
+  gameStat.allFrames = allAppFrames.length;
+
+  for (let i = 0; i < gameStat.gameFrames; i++) {
+    scoreState.push({answerIndic: null});
+  }
 };
 
-export const getGameStat = () => {
-  const gameStatTemplate = `
+getGameStat();
+
+export const getLives = () => {
+  const liveStatTemplate = `
     <h1 class="game__timer">${initialState.time}</h1>
     <div class="game__lives">
       ${new Array(initialState.lives)
@@ -26,7 +44,7 @@ export const getGameStat = () => {
       .join(``)}
     </div>`;
 
-  return gameStatTemplate;
+  return liveStatTemplate;
 };
 
 export const getScoreStat = () => {
@@ -64,11 +82,15 @@ export const getScoreStat = () => {
   return getScoreTemplate;
 };
 
+const setScoreState = (gameResult) => {
+  scoreState[initialState.currentFrame - Object.keys(InfoFrames).length] = gameResult;
+};
+
 export const errorAnswer = () => {
   initialState.lives = initialState.lives - 1;
   setScoreState({answerResult: 0, answerTime: 0, answerIndic: WRONG});
-  if (initialState.lives < 0) {
 
+  if (initialState.lives < 0) {
     frameChange(initialState.allFrames - 1);
   } else {
     frameChange(++initialState.currentFrame);
@@ -77,11 +99,38 @@ export const errorAnswer = () => {
 
 export const validAnswer = () => {
   if (initialState.time < FAST_TIME) {
+    initialState.fastPt++;
     setScoreState({answerResult: 1, answerTime: initialState.time, answerIndic: FAST});
   } else if (initialState.time > SLOW_TIME) {
+    initialState.slowPt++;
     setScoreState({answerResult: 1, answerTime: initialState.time, answerIndic: SLOW});
   } else {
     setScoreState({answerResult: 1, answerTime: initialState.time, answerIndic: CORRECT});
   }
+
+  if (initialState.currentFrame + 1 === initialState.allFrames - 1) {
+    setGameResult();
+  }
+
+  frameChange(++initialState.currentFrame);
+};
+
+const setGameResult = () => {
+  const GameResult = {
+    game: ``,
+    resultLine: getScoreStat(),
+    resultScore: getFinalScore(scoreState, initialState.lives),
+    fastCount: initialState.fastPt,
+    slowCount: initialState.slowPt,
+    correct: initialState.gameFrames - initialState.lives,
+    restLives: initialState.lives
+  };
+
+  gamesResult.push(GameResult);
+
+  console.log(gamesResult);
+};
+
+export const getNextFrame = () => {
   frameChange(++initialState.currentFrame);
 };

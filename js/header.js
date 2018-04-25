@@ -1,4 +1,4 @@
-import {getGameStat} from './game-stat';
+import {getLives} from './game-stat';
 
 const getHeader = (statShow) => {
   const headerTemplate = `
@@ -9,7 +9,7 @@ const getHeader = (statShow) => {
           <img src="img/logo_small.svg" width="101" height="44">
         </button>
       </div>
-      ${(statShow) ? getGameStat() : ``}
+      ${statShow ? getLives() : ``}
     </header>`;
 
   return headerTemplate;

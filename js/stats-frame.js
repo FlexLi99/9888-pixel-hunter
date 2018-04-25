@@ -1,97 +1,62 @@
 import frameCreate from './frame-create';
 import getHeader from './header';
-import {getScoreStat} from './game-stat';
+import {gamesResult} from './game-stat';
+
+const BONUS = 50;
 
 const stats = () => {
   const statsTemplate = `${getHeader(false)}
                           <div class="result">
                             <h1>Победа!</h1>
-                            <table class="result__table">
-                              <tr>
-                                <td class="result__number">1.</td>
-                                <td colspan="2">
-                                  ${getScoreStat()}
-                                </td>
-                                <td class="result__points">×&nbsp;100</td>
-                                <td class="result__total">900</td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td class="result__extra">Бонус за скорость:</td>
-                                <td class="result__extra">1&nbsp;<span class="stats__result stats__result--fast"></span></td>
-                                <td class="result__points">×&nbsp;50</td>
-                                <td class="result__total">50</td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td class="result__extra">Бонус за жизни:</td>
-                                <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-                                <td class="result__points">×&nbsp;50</td>
-                                <td class="result__total">100</td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td class="result__extra">Штраф за медлительность:</td>
-                                <td class="result__extra">2&nbsp;<span class="stats__result stats__result--slow"></span></td>
-                                <td class="result__points">×&nbsp;50</td>
-                                <td class="result__total">-100</td>
-                              </tr>
-                              <tr>
-                                <td colspan="5" class="result__total  result__total--final">950</td>
-                              </tr>
-                            </table>
-                            <table class="result__table">
-                              <tr>
-                                <td class="result__number">2.</td>
-                                <td>
-                                  <ul class="stats">
-                                    <li class="stats__result stats__result--wrong"></li>
-                                    <li class="stats__result stats__result--slow"></li>
-                                    <li class="stats__result stats__result--fast"></li>
-                                    <li class="stats__result stats__result--correct"></li>
-                                    <li class="stats__result stats__result--wrong"></li>
-                                    <li class="stats__result stats__result--unknown"></li>
-                                    <li class="stats__result stats__result--slow"></li>
-                                    <li class="stats__result stats__result--wrong"></li>
-                                    <li class="stats__result stats__result--fast"></li>
-                                    <li class="stats__result stats__result--wrong"></li>
-                                  </ul>
-                                </td>
-                                <td class="result__total"></td>
-                                <td class="result__total  result__total--final">fail</td>
-                              </tr>
-                            </table>
-                            <table class="result__table">
-                              <tr>
-                                <td class="result__number">3.</td>
-                                <td colspan="2">
-                                  <ul class="stats">
-                                    <li class="stats__result stats__result--wrong"></li>
-                                    <li class="stats__result stats__result--slow"></li>
-                                    <li class="stats__result stats__result--fast"></li>
-                                    <li class="stats__result stats__result--correct"></li>
-                                    <li class="stats__result stats__result--wrong"></li>
-                                    <li class="stats__result stats__result--unknown"></li>
-                                    <li class="stats__result stats__result--slow"></li>
-                                    <li class="stats__result stats__result--unknown"></li>
-                                    <li class="stats__result stats__result--fast"></li>
-                                    <li class="stats__result stats__result--unknown"></li>
-                                  </ul>
-                                </td>
-                                <td class="result__points">×&nbsp;100</td>
-                                <td class="result__total">900</td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td class="result__extra">Бонус за жизни:</td>
-                                <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-                                <td class="result__points">×&nbsp;50</td>
-                                <td class="result__total">100</td>
-                              </tr>
-                              <tr>
-                                <td colspan="5" class="result__total  result__total--final">950</td>
-                              </tr>
-                            </table>
+                            ${gamesResult.map((result, index) => `
+                              <table class="result__table">
+                                <tr>
+                                  <td class="result__number">${index + 1}.</td>
+                                  <td colspan="2">
+                                    ${result.resultLine}
+                                  </td>
+                                  ${(result.resultScore !== -1) ? new Array(result.fastCount).fill(`
+                                    <td class="result__points">×&nbsp;${BONUS * 2}</td>
+                                    <td class="result__total">${result.resultScore}</td>
+                                  `).join(``) : new Array(result.fastCount).fill(`
+                                    td class="result__points"></td>
+                                    <td class="result__total">fail</td>
+                                  `).join(``)}
+                                </tr>
+                                ${(result.fastCount > 0) ? new Array(result.fastCount).fill(`
+                                  <tr>
+                                    <td></td>
+                                    <td class="result__extra">Бонус за скорость:</td>
+                                    <td class="result__extra">${result.fastCount}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+                                    <td class="result__points">×&nbsp;${BONUS}</td>
+                                    <td class="result__total">${result.fastCount * BONUS}</td>
+                                  </tr>
+                                `).join(``) : ``}
+                                ${(result.restLives > 0) ? new Array(result.restLives).fill(`
+                                  <tr>
+                                    <td></td>
+                                    <td class="result__extra">Бонус за жизни:</td>
+                                    <td class="result__extra">${result.restLives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+                                    <td class="result__points">×&nbsp;${BONUS}</td>
+                                    <td class="result__total">${result.restLives * BONUS}</td>
+                                  </tr>
+                                `).join(``) : ``}
+                                ${(result.slowCount > 0) ? new Array(result.slowCount).fill(`
+                                  <tr>
+                                    <td></td>
+                                    <td class="result__extra">Штраф за медлительность:</td>
+                                    <td class="result__extra">${result.slowCount}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+                                    <td class="result__points">×&nbsp;${BONUS}</td>
+                                    <td class="result__total">-${result.slowCount * BONUS}</td>
+                                  </tr>
+                                `).join(``) : ``}
+                                ${(result.resultScore !== -1) ? new Array(result.resultScore).fill(`
+                                  <tr>
+                                    <td colspan="5" class="result__total  result__total--final">${result.resultScore}</td>
+                                  </tr>
+                                `).join(``) : ``}
+                              </table>
+                              `).join(``)}
                           </div>`;
 
   const getTemplate = frameCreate(statsTemplate);

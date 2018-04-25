@@ -1,13 +1,13 @@
 import frameCreate from './frame-create';
-import frameChange from './frame-change';
 import getHeader from './header';
-import {infoFrames, initialState} from './data/game-data';
+import {InfoFrames} from './data/game-data';
+import {getNextFrame} from './game-stat';
 
 const rules = () => {
   const rulesTemplate = `${getHeader(false)}
                         <div class="rules">
-                          <h1 class="rules__title">${infoFrames.rules.title}</h1>
-                          <p class="rules__description">${infoFrames.rules.text}</p>
+                          <h1 class="rules__title">${InfoFrames.rules.title}</h1>
+                          <p class="rules__description">${InfoFrames.rules.text}</p>
                           <form class="rules__form">
                             <input class="rules__input" type="text" placeholder="Ваше Имя">
                             <button class="rules__button  continue" type="submit" disabled>Go!</button>
@@ -32,12 +32,12 @@ const rules = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    frameChange(++initialState.currentFrame);
+    getNextFrame();
   };
 
   const backHandler = (event) => {
     if (event.target.closest(`.header__back`)) {
-      frameChange(initialState.currentFrame = 1);
+      //  frameChange(initialState.currentFrame = 1);
     }
   };
 

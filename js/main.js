@@ -1,3 +1,3 @@
-import frameChange from './frame-change';
+import {frameChange} from './frame-change';
 
 frameChange();

@@ -1,6 +1,6 @@
 //  Объект структуры данных для информационных фреймов
 
-export const infoFrames = {
+export const InfoFrames = {
   intro: {
     text: `Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.`
   },
@@ -27,17 +27,15 @@ export const infoFrames = {
 
 //  Объект структуры данных для начальных параметров игры
 
-export const initialState = {
+export const initialState = Object.freeze({
   gameFrames: 0,
   currentFrame: 0,
   allFrames: 0,
   time: 20,
-  lives: 3
-};
-
-//  Массив структуры данных для статистики ответов
-
-export const scoreState = [];
+  lives: 3,
+  fastPt: 0,
+  slowPt: 0
+});
 
 //  Объект структуры данных для фреймов с играми
 

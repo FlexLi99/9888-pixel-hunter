@@ -1,19 +1,37 @@
-import {initialState, scoreState} from './data/game-data';
-import {gameFrames, allAppFrames} from './game-frames';
+import intro from './intro-frame';
+import greeting from './greeting-frame';
+import rules from './rules-frame';
+import firstGame from './first-game-frame';
+import secondGame from './second-game-frame';
+import thirdGame from './third-game-frame';
+import stats from './stats-frame';
 
-initialState.gameFrames = gameFrames.length;
-initialState.allFrames = allAppFrames.length;
-
-for (let i = 0; i < initialState.gameFrames; i++) {
-  scoreState.push({answerIndic: null});
-}
-
-const mainFrame = document.querySelector(`main.central`);
-const frameChange = (gameFrame = initialState.currentFrame) => {
-  mainFrame.innerHTML = ``;
-  mainFrame.appendChild(allAppFrames[gameFrame]());
-  console.log(initialState, gameFrame);
-  console.log(scoreState);
+const shuffling = () => {
+  return Math.random() - 0.5;
 };
 
-export default frameChange;
+const gameFrames = [
+  firstGame,
+  secondGame,
+  thirdGame
+].sort(shuffling);
+
+const frames = [
+  intro,
+  greeting,
+  rules,
+  stats
+];
+
+const lastElem = frames.splice(-1, 1);
+const allAppFrames = frames.concat(gameFrames, lastElem);
+
+const mainFrame = document.querySelector(`main.central`);
+const frameChange = (gameFrame = 0) => {
+  mainFrame.innerHTML = ``;
+  mainFrame.appendChild(allAppFrames[gameFrame]());
+
+  console.log(gameFrames);
+};
+
+export {frameChange, gameFrames, allAppFrames};
