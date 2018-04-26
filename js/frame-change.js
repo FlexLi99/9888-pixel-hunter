@@ -15,7 +15,12 @@ const gameFrames = [
   secondGame,
   thirdGame,
   firstGame,
-  secondGame
+  secondGame,
+  thirdGame,
+  firstGame,
+  secondGame,
+  thirdGame,
+  firstGame
 ].sort(shuffling);
 
 const frames = [

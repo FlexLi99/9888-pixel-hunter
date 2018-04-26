@@ -3,7 +3,7 @@ const FAST_ANSWER = 50;
 const SLOW_ANSWER = -FAST_ANSWER;
 const FAST_TIME = 10;
 const SLOW_TIME = 20;
-const SCORE_LENGTH = 5;
+const SCORE_LENGTH = 10;
 
 export const getFinalScore = (playerScore, numberLivesLeft) => {
   let finalScoreResult = 0;
