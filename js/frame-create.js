@@ -1,4 +1,4 @@
-import getFooter from './footer';
+import getFooter from './templates/footer';
 
 const frameCreate = (frameString) => {
   const frameContainer = document.createElement(`div`);

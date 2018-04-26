@@ -27,7 +27,7 @@ export const InfoFrames = {
 
 //  Объект структуры данных для начальных параметров игры
 
-export const initialState = Object.freeze({
+export const InitialState = Object.freeze({
   gameFrames: 0,
   currentFrame: 0,
   allFrames: 0,
@@ -39,7 +39,7 @@ export const initialState = Object.freeze({
 
 //  Объект структуры данных для фреймов с играми
 
-export const games = {
+export const Games = {
   'game-1': {
     desc: `Угадайте для каждого изображения фото или рисунок?`,
     answers: [
@@ -90,7 +90,9 @@ export const games = {
   }
 };
 
-export const service = {
+export const Service = {
   paint: `Рисунок`,
-  photo: `Фото`
+  photo: `Фото`,
+  win: `Победа!`,
+  fail: `Вы проиграли :'(`
 };

@@ -3,12 +3,10 @@ const FAST_ANSWER = 50;
 const SLOW_ANSWER = -FAST_ANSWER;
 const FAST_TIME = 10;
 const SLOW_TIME = 20;
-const SCORE_LENGTH = 10;
+const SCORE_LENGTH = 5;
 
 export const getFinalScore = (playerScore, numberLivesLeft) => {
   let finalScoreResult = 0;
-
-  console.log(typeof playerScore, typeof numberLivesLeft);
 
   if (typeof playerScore !== `object` || typeof numberLivesLeft !== `number`) {
     return false;

@@ -1,10 +1,10 @@
-import intro from './intro-frame';
-import greeting from './greeting-frame';
-import rules from './rules-frame';
-import firstGame from './first-game-frame';
-import secondGame from './second-game-frame';
-import thirdGame from './third-game-frame';
-import stats from './stats-frame';
+import intro from './templates/intro-frame';
+import greeting from './templates/greeting-frame';
+import rules from './templates/rules-frame';
+import firstGame from './templates/first-game-frame';
+import secondGame from './templates/second-game-frame';
+import thirdGame from './templates/third-game-frame';
+import stats from './templates/stats-frame';
 
 const shuffling = () => {
   return Math.random() - 0.5;
@@ -13,7 +13,9 @@ const shuffling = () => {
 const gameFrames = [
   firstGame,
   secondGame,
-  thirdGame
+  thirdGame,
+  firstGame,
+  secondGame
 ].sort(shuffling);
 
 const frames = [
@@ -30,8 +32,6 @@ const mainFrame = document.querySelector(`main.central`);
 const frameChange = (gameFrame = 0) => {
   mainFrame.innerHTML = ``;
   mainFrame.appendChild(allAppFrames[gameFrame]());
-
-  console.log(gameFrames);
 };
 
 export {frameChange, gameFrames, allAppFrames};

@@ -1,24 +1,24 @@
-import frameCreate from './frame-create';
+import frameCreate from '../frame-create';
 import getHeader from './header';
-import {getScoreStat, errorAnswer, validAnswer} from './game-stat';
-import {games, service} from './data/game-data';
-
+import {errorAnswerHandler, validAnswerHandler} from '../game-stat';
+import {Games, Service} from '../data/game-data';
+import {getScoreStat} from '../game-indicator';
 
 const firstGame = () => {
   const firstGameTemplate = `${getHeader(true)}
                             <div class="game">
-                              <p class="game__task">${games[`game-1`].desc}</p>
+                              <p class="game__task">${Games[`game-1`].desc}</p>
                               <form class="game__content">
-                                ${games[`game-1`].answers.map((answer) => `
+                                ${Games[`game-1`].answers.map((answer) => `
                                   <div class="game__option">
                                     <img src="${answer.imgSrc}" alt="${answer.imgAlt}" width="468" height="458">
                                     <label class="game__answer game__answer--photo">
                                       <input name="${answer.questName}" type="radio" value="photo">
-                                      <span>${service.photo}</span>
+                                      <span>${Service.photo}</span>
                                     </label>
                                     <label class="game__answer game__answer--paint">
                                       <input name="${answer.questName}" type="radio" value="paint">
-                                      <span>Рисунок</span>
+                                      <span>${Service.paint}</span>
                                     </label>
                                   </div>
                                   `).join(``)}
@@ -37,10 +37,10 @@ const firstGame = () => {
 
     if (target.closest(`.game__answer`)) {
       if (userChoise.length === 2) {
-        if (JSON.stringify(userChoise.map((answer) => answer.value)) !== JSON.stringify(games[`game-1`].answers.map((answer) => answer.rightAnswer))) {
-          errorAnswer();
+        if (JSON.stringify(userChoise.map((answer) => answer.value)) !== JSON.stringify(Games[`game-1`].answers.map((answer) => answer.rightAnswer))) {
+          errorAnswerHandler();
         } else {
-          validAnswer();
+          validAnswerHandler();
         }
       }
     }

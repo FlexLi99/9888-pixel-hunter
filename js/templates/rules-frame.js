@@ -1,7 +1,7 @@
-import frameCreate from './frame-create';
+import frameCreate from '../frame-create';
 import getHeader from './header';
-import {InfoFrames} from './data/game-data';
-import {getNextFrame} from './game-stat';
+import {InfoFrames} from '../data/game-data';
+import {getNextFrame} from '../game-stat';
 
 const rules = () => {
   const rulesTemplate = `${getHeader(false)}
@@ -35,17 +35,10 @@ const rules = () => {
     getNextFrame();
   };
 
-  const backHandler = (event) => {
-    if (event.target.closest(`.header__back`)) {
-      //  frameChange(initialState.currentFrame = 1);
-    }
-  };
-
   const getTemplate = frameCreate(rulesTemplate);
 
   getTemplate.addEventListener(`input`, inputHandler);
   getTemplate.addEventListener(`submit`, submitHandler);
-  document.addEventListener(`click`, backHandler);
 
   return getTemplate;
 };

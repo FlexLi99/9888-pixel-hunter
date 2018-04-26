@@ -1,6 +1,6 @@
-import frameCreate from './frame-create';
-import {InfoFrames} from './data/game-data';
-import {getNextFrame} from './game-stat';
+import frameCreate from '../frame-create';
+import {InfoFrames} from '../data/game-data';
+import {getNextFrame} from '../game-stat';
 
 const greeting = () => {
   const greetingTemplate = `<div class="greeting central--blur">

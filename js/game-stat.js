@@ -1,6 +1,7 @@
-import {initialState, InfoFrames} from './data/game-data';
-import {getFinalScore} from './final-score';
 import {frameChange, gameFrames, allAppFrames} from './frame-change';
+import {InitialState, InfoFrames, Service} from './data/game-data';
+import {getFinalScore} from './final-score';
+import {getScoreStat} from './game-indicator';
 
 const LIVE_VAL = 3;
 const UNKNOWN = null;
@@ -10,127 +11,107 @@ const FAST = 0.5;
 const SLOW = 2;
 const FAST_TIME = 10;
 const SLOW_TIME = 20;
-
-//  Массив структуры данных для статистики ответов
-
-const scoreState = [];
+const WIN = Service.win;
+const FAIL = Service.fail;
 
 //  Массив структуры данных для хранеия результатов игры
 
 export const gamesResult = [];
 
-export const gameStat = Object.assign({}, initialState);
+export let gameStat = Object.assign({}, InitialState);
 
 const getGameStat = () => {
+  const newScoreStat = [];
+
   gameStat.gameFrames = gameFrames.length;
   gameStat.allFrames = allAppFrames.length;
 
   for (let i = 0; i < gameStat.gameFrames; i++) {
-    scoreState.push({answerIndic: null});
+    newScoreStat.push({answerIndic: UNKNOWN});
   }
+
+  return newScoreStat;
 };
 
-getGameStat();
+//  Массив структуры данных для статистики ответов
 
-export const getLives = () => {
-  const liveStatTemplate = `
-    <h1 class="game__timer">${initialState.time}</h1>
-    <div class="game__lives">
-      ${new Array(initialState.lives)
-      .fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`)
-      .join(``)}
-      ${new Array(LIVE_VAL - initialState.lives)
-      .fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`)
-      .join(``)}
-    </div>`;
+export let scoreState = getGameStat();
 
-  return liveStatTemplate;
-};
-
-export const getScoreStat = () => {
-  const setState = () => {
-    let scoreList = ``;
-
-    for (let i = 0; i < scoreState.length; i++) {
-      switch (scoreState[i].answerIndic) {
-        case UNKNOWN:
-          scoreList += `<li class="stats__result stats__result--unknown"></li>`;
-          break;
-        case WRONG:
-          scoreList += `<li class="stats__result stats__result--wrong"></li>`;
-          break;
-        case CORRECT:
-          scoreList += `<li class="stats__result stats__result--correct"></li>`;
-          break;
-        case FAST:
-          scoreList += `<li class="stats__result stats__result--fast"></li>`;
-          break;
-        case SLOW:
-          scoreList += `<li class="stats__result stats__result--slow"></li>`;
-          break;
-      }
-    }
-    return scoreList;
-  };
-
-  const getScoreTemplate = `
-    <ul class="stats">
-      ${setState()}
-    </ul>
-  `;
-
-  return getScoreTemplate;
-};
+// Функция заолнения массива статистики ответов
 
 const setScoreState = (gameResult) => {
-  scoreState[initialState.currentFrame - Object.keys(InfoFrames).length] = gameResult;
+  scoreState[gameStat.currentFrame - Object.keys(InfoFrames).length] = gameResult;
 };
 
-export const errorAnswer = () => {
-  initialState.lives = initialState.lives - 1;
+// Функция для обработки ошибочного ответа
+
+export const errorAnswerHandler = () => {
+  gameStat.lives = gameStat.lives - 1;
   setScoreState({answerResult: 0, answerTime: 0, answerIndic: WRONG});
 
-  if (initialState.lives < 0) {
-    frameChange(initialState.allFrames - 1);
+  if (gameStat.lives < 0) {
+    setGameResult(FAIL);
+    frameChange(gameStat.allFrames - 1);
+  } else if (gameStat.currentFrame + 1 === gameStat.allFrames - 1) {
+    setGameResult(WIN);
+    frameChange(++gameStat.currentFrame);
   } else {
-    frameChange(++initialState.currentFrame);
+    frameChange(++gameStat.currentFrame);
   }
 };
 
-export const validAnswer = () => {
-  if (initialState.time < FAST_TIME) {
-    initialState.fastPt++;
-    setScoreState({answerResult: 1, answerTime: initialState.time, answerIndic: FAST});
-  } else if (initialState.time > SLOW_TIME) {
-    initialState.slowPt++;
-    setScoreState({answerResult: 1, answerTime: initialState.time, answerIndic: SLOW});
+// Функция для обработки правильного ответа
+
+export const validAnswerHandler = () => {
+  if (gameStat.time < FAST_TIME) {
+
+    gameStat.fastPt++;
+    setScoreState({answerResult: 1, answerTime: gameStat.time, answerIndic: FAST});
+  } else if (gameStat.time > SLOW_TIME) {
+
+    gameStat.slowPt++;
+    setScoreState({answerResult: 1, answerTime: gameStat.time, answerIndic: SLOW});
   } else {
-    setScoreState({answerResult: 1, answerTime: initialState.time, answerIndic: CORRECT});
+
+    setScoreState({answerResult: 1, answerTime: gameStat.time, answerIndic: CORRECT});
   }
 
-  if (initialState.currentFrame + 1 === initialState.allFrames - 1) {
-    setGameResult();
+  if (gameStat.currentFrame + 1 === gameStat.allFrames - 1) {
+    setGameResult(WIN);
   }
 
-  frameChange(++initialState.currentFrame);
+  frameChange(++gameStat.currentFrame);
 };
 
-const setGameResult = () => {
+// Функция заполнения массива данными о каждой игре
+
+const setGameResult = (value) => {
   const GameResult = {
-    game: ``,
+    gameStatus: value,
     resultLine: getScoreStat(),
-    resultScore: getFinalScore(scoreState, initialState.lives),
-    fastCount: initialState.fastPt,
-    slowCount: initialState.slowPt,
-    correct: initialState.gameFrames - initialState.lives,
-    restLives: initialState.lives
+    fastCount: gameStat.fastPt,
+    slowCount: gameStat.slowPt,
+    restLives: gameStat.lives,
+    resultScore: getFinalScore(scoreState, gameStat.lives),
+    correct: () => gameStat.gameFrames - (LIVE_VAL - gameStat.lives)
   };
 
   gamesResult.push(GameResult);
-
-  console.log(gamesResult);
 };
 
-export const getNextFrame = () => {
-  frameChange(++initialState.currentFrame);
+// функция переключения игровых экранов
+
+export const getNextFrame = (value) => {
+  if (typeof value === `undefined`) {
+    frameChange(++gameStat.currentFrame);
+  } else {
+    frameChange(gameStat.currentFrame = value);
+  }
+};
+
+// Функция для сброса данных о текущей игре
+
+export const gameReset = () => {
+  gameStat = Object.assign({}, InitialState);
+  scoreState = getGameStat();
 };

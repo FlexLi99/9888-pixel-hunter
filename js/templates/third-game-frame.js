@@ -1,14 +1,15 @@
-import frameCreate from './frame-create';
+import frameCreate from '../frame-create';
 import getHeader from './header';
-import {getScoreStat, errorAnswer, validAnswer} from './game-stat';
-import {games} from './data/game-data';
+import {errorAnswerHandler, validAnswerHandler} from '../game-stat';
+import {Games} from '../data/game-data';
+import {getScoreStat} from '../game-indicator';
 
 const thirdGame = () => {
   const thirdGameTemplate = `${getHeader(true)}
                             <div class="game">
-                              <p class="game__task">${games[`game-3`].desc}</p>
+                              <p class="game__task">${Games[`game-3`].desc}</p>
                               <form class="game__content  game__content--triple">
-                              ${games[`game-3`].answers.map((answer) => `
+                              ${Games[`game-3`].answers.map((answer) => `
                                 <div class="game__option${answer.rightAnswer === `paint` ? ` game__option--selected` : ``}">
                                   <img src="${answer.imgSrc}" alt="${answer.imgAlt}" width="304" height="455">
                                 </div>
@@ -26,9 +27,9 @@ const thirdGame = () => {
 
     if (target.closest(`.game__option`)) {
       if (target.matches(`.game__option--selected`)) {
-        validAnswer();
+        validAnswerHandler();
       } else {
-        errorAnswer();
+        errorAnswerHandler();
       }
     }
   };

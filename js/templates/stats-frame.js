@@ -1,29 +1,29 @@
-import frameCreate from './frame-create';
+import frameCreate from '../frame-create';
 import getHeader from './header';
-import {gamesResult} from './game-stat';
+import {gamesResult} from '../game-stat';
 
 const BONUS = 50;
 
 const stats = () => {
   const statsTemplate = `${getHeader(false)}
                           <div class="result">
-                            <h1>Победа!</h1>
-                            ${gamesResult.map((result, index) => `
+                            <h1>${gamesResult[gamesResult.length - 1].gameStatus}</h1>
+                            ${gamesResult.reverse().map((result, index) => `
                               <table class="result__table">
                                 <tr>
                                   <td class="result__number">${index + 1}.</td>
                                   <td colspan="2">
                                     ${result.resultLine}
                                   </td>
-                                  ${(result.resultScore !== -1) ? new Array(result.fastCount).fill(`
+                                  ${(result.resultScore !== -1) ? `
                                     <td class="result__points">×&nbsp;${BONUS * 2}</td>
-                                    <td class="result__total">${result.resultScore}</td>
-                                  `).join(``) : new Array(result.fastCount).fill(`
-                                    td class="result__points"></td>
+                                    <td class="result__total">${result.correct() * BONUS * 2}</td>
+                                  ` : `
+                                    <td class="result__points"></td>
                                     <td class="result__total">fail</td>
-                                  `).join(``)}
+                                  `}
                                 </tr>
-                                ${(result.fastCount > 0) ? new Array(result.fastCount).fill(`
+                                ${(result.fastCount > 0) ? `
                                   <tr>
                                     <td></td>
                                     <td class="result__extra">Бонус за скорость:</td>
@@ -31,8 +31,8 @@ const stats = () => {
                                     <td class="result__points">×&nbsp;${BONUS}</td>
                                     <td class="result__total">${result.fastCount * BONUS}</td>
                                   </tr>
-                                `).join(``) : ``}
-                                ${(result.restLives > 0) ? new Array(result.restLives).fill(`
+                                ` : ``}
+                                ${(result.restLives > 0) ? `
                                   <tr>
                                     <td></td>
                                     <td class="result__extra">Бонус за жизни:</td>
@@ -40,8 +40,8 @@ const stats = () => {
                                     <td class="result__points">×&nbsp;${BONUS}</td>
                                     <td class="result__total">${result.restLives * BONUS}</td>
                                   </tr>
-                                `).join(``) : ``}
-                                ${(result.slowCount > 0) ? new Array(result.slowCount).fill(`
+                                ` : ``}
+                                ${(result.slowCount > 0) ? `
                                   <tr>
                                     <td></td>
                                     <td class="result__extra">Штраф за медлительность:</td>
@@ -49,12 +49,12 @@ const stats = () => {
                                     <td class="result__points">×&nbsp;${BONUS}</td>
                                     <td class="result__total">-${result.slowCount * BONUS}</td>
                                   </tr>
-                                `).join(``) : ``}
-                                ${(result.resultScore !== -1) ? new Array(result.resultScore).fill(`
+                                ` : ``}
+                                ${(result.resultScore !== -1) ? `
                                   <tr>
                                     <td colspan="5" class="result__total  result__total--final">${result.resultScore}</td>
                                   </tr>
-                                `).join(``) : ``}
+                                ` : ``}
                               </table>
                               `).join(``)}
                           </div>`;

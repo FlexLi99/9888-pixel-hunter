@@ -1,6 +1,6 @@
-import frameCreate from './frame-create';
-import {InfoFrames} from './data/game-data';
-import {getNextFrame} from './game-stat';
+import frameCreate from '../frame-create';
+import {getNextFrame} from '../game-stat';
+import {InfoFrames} from '../data/game-data';
 
 const intro = () => {
   const introTemplate = `<div id="main" class="central__content">
