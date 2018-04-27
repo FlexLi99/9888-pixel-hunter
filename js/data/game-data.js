@@ -2,19 +2,19 @@
 
 export const InfoFrames = {
   INTRO: {
-    TEXT: `Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.`
+    text: `Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.`
   },
   GREETING: {
-    TITLE: `Лучшие художники-фотореалисты бросают&nbsp;тебе&nbsp;вызов!`,
-    TEXT: `Правила игры просты.<br>
+    title: `Лучшие художники-фотореалисты бросают&nbsp;тебе&nbsp;вызов!`,
+    text: `Правила игры просты.<br>
             Нужно отличить рисунок&nbsp;от фотографии и сделать выбор.<br>
             Задача кажется тривиальной, но не думай, что все так просто.<br>
             Фотореализм обманчив и коварен.<br>
             Помни, главное — смотреть очень внимательно.`
   },
   RULES: {
-    TITLE: `Правила`,
-    TEXT: `Угадай 10 раз для каждого изображения фото <img
+    title: `Правила`,
+    text: `Угадай 10 раз для каждого изображения фото <img
             src="img/photo_icon.png" width="16" height="16"> или рисунок <img
             src="img/paint_icon.png" width="16" height="16" alt="">.<br>
             Фотографиями или рисунками могут быть оба изображения.<br>
@@ -49,50 +49,50 @@ export const Constants = Object.freeze({
 
 export const Games = {
   'GAME-1': {
-    DESC: `Угадайте для каждого изображения фото или рисунок?`,
-    ANSWERS: [
+    desc: `Угадайте для каждого изображения фото или рисунок?`,
+    answers: [
       {
-        IMGSRC: `https://k42.kn3.net/CF42609C8.jpg`,
-        IMGALT: `Option 1`,
-        QUESTNAME: `question1`,
-        RIGHTANSWER: `paint`
+        src: `https://k42.kn3.net/CF42609C8.jpg`,
+        alt: `Option 1`,
+        question: `question1`,
+        answer: `paint`
       },
       {
-        IMGSRC: `http://i.imgur.com/1KegWPz.jpg`,
-        IMGALT: `Option 2`,
-        QUESTNAME: `question2`,
-        RIGHTANSWER: `photo`
+        src: `http://i.imgur.com/1KegWPz.jpg`,
+        alt: `Option 2`,
+        question: `question2`,
+        answer: `photo`
       }
     ]
   },
   'GAME-2': {
-    DESC: `Угадай, фото или рисунок?`,
-    ANSWERS: [
+    desc: `Угадай, фото или рисунок?`,
+    answers: [
       {
-        IMGSRC: `https://k42.kn3.net/D2F0370D6.jpg`,
-        IMGALT: `Option 1`,
-        QUESTNAME: `question1`,
-        RIGHTANSWER: `paint`,
+        src: `https://k42.kn3.net/D2F0370D6.jpg`,
+        alt: `Option 1`,
+        question: `question1`,
+        answer: `paint`,
       }
     ]
   },
   'GAME-3': {
-    DESC: `Найдите рисунок среди изображений`,
-    ANSWERS: [
+    desc: `Найдите рисунок среди изображений`,
+    answers: [
       {
-        IMGSRC: `https://k32.kn3.net/5C7060EC5.jpg`,
-        IMGALT: `Option 1`,
-        RIGHTANSWER: `paint`
+        src: `https://k32.kn3.net/5C7060EC5.jpg`,
+        alt: `Option 1`,
+        answer: `paint`
       },
       {
-        IMGSRC: `https://i.imgur.com/DiHM5Zb.jpg`,
-        IMGALT: `Option 1`,
-        RIGHTANSWER: `photo`
+        src: `https://i.imgur.com/DiHM5Zb.jpg`,
+        alt: `Option 1`,
+        answer: `photo`
       },
       {
-        IMGSRC: `http://i.imgur.com/DKR1HtB.jpg`,
-        IMGALT: `Option 1`,
-        RIGHTANSWER: `photo`
+        src: `http://i.imgur.com/DKR1HtB.jpg`,
+        alt: `Option 1`,
+        answer: `photo`
       }
     ]
   }

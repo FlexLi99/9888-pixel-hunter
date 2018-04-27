@@ -5,8 +5,7 @@ import {gamesResult} from '../game-stat';
 const BONUS = 50;
 
 export default () => {
-  const statsTemplate = `${getHeader(false)}
-                          <div class="result">
+  const statsTemplate = `<div class="result">
                             <h1>${gamesResult[gamesResult.length - 1].gameStatus}</h1>
                             ${gamesResult.reverse().map((result, index) => `
                               <table class="result__table">
@@ -60,6 +59,9 @@ export default () => {
                           </div>`;
 
   const getTemplate = frameCreate(statsTemplate);
+  const result = getTemplate.querySelector(`.result`);
+
+  getTemplate.insertBefore(getHeader(true), result);
 
   return getTemplate;
 };

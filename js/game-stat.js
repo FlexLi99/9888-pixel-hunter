@@ -65,13 +65,7 @@ export const setErrorAnswer = () => {
 // Функция для обработки правильного ответа
 
 export const setValidAnswer = () => {
-  if (gameStat.TIME < Constants.FAST_TIME) {
-    setScoreState({answerResult: 1, answerTime: gameStat.TIME});
-  } else if (gameStat.TIME > Constants.SLOW_TIME) {
-    setScoreState({answerResult: 1, answerTime: gameStat.TIME});
-  } else {
-    setScoreState({answerResult: 1, answerTime: gameStat.TIME});
-  }
+  setScoreState({answerResult: 1, answerTime: gameStat.TIME});
 
   if (gameStat.CURRENT_FRAME + 1 === gameStat.ALL_FRAMES - 1) {
     setGameResult(WIN);
@@ -96,12 +90,3 @@ export const gameReset = () => {
   gameStat = Object.assign({}, InitialState);
   scoreState = getGameStat();
 };
-
-const backHandler = (event) => {
-  if (event.target.closest(`.header__back`)) {
-    gameReset();
-    getNextFrame(1);
-  }
-};
-
-document.addEventListener(`click`, backHandler);

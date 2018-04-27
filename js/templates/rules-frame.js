@@ -4,10 +4,9 @@ import {InfoFrames} from '../data/game-data';
 import {getNextFrame} from '../game-stat';
 
 export default () => {
-  const rulesTemplate = `${getHeader(false)}
-                        <div class="rules">
-                          <h1 class="rules__title">${InfoFrames.RULES.TITLE}</h1>
-                          <p class="rules__description">${InfoFrames.RULES.TEXT}</p>
+  const rulesTemplate = `<div class="rules">
+                          <h1 class="rules__title">${InfoFrames.RULES.title}</h1>
+                          <p class="rules__description">${InfoFrames.RULES.text}</p>
                           <form class="rules__form">
                             <input class="rules__input" type="text" placeholder="Ваше Имя">
                             <button class="rules__button  continue" type="submit" disabled>Go!</button>
@@ -37,6 +36,9 @@ export default () => {
 
   const getTemplate = frameCreate(rulesTemplate);
 
+  const game = getTemplate.querySelector(`.game`);
+
+  getTemplate.insertBefore(getHeader(false), game);
   getTemplate.addEventListener(`input`, inputHandler);
   getTemplate.addEventListener(`submit`, submitHandler);
 

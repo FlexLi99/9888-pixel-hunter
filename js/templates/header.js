@@ -1,4 +1,4 @@
-import {gameStat} from '../game-stat';
+import {gameStat, gameReset, getNextFrame} from '../game-stat';
 
 const LIVE_VAL = 3;
 
@@ -18,6 +18,7 @@ const getLives = () => {
 };
 
 const getHeader = (statShow) => {
+  const headWrapper = document.createElement(`div`);
   const headerTemplate = `
   <header class="header">
       <div class="header__back">
@@ -29,7 +30,21 @@ const getHeader = (statShow) => {
       ${statShow ? getLives() : ``}
     </header>`;
 
-  return headerTemplate;
+
+  const backHandler = (event) => {
+    if (event.target.closest(`.header__back`)) {
+      gameReset();
+      getNextFrame(1);
+    }
+  };
+
+  headWrapper.innerHTML = headerTemplate;
+
+  const getTemplate = headWrapper.querySelector(`.header`);
+
+  getTemplate.addEventListener(`click`, backHandler);
+
+  return getTemplate;
 };
 
 export default getHeader;

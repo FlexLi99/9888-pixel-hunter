@@ -7,8 +7,8 @@ export default () => {
                               <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
                               <h1 class="greeting__asterisk">*</h1>
                               <div class="greeting__challenge">
-                                <h3>${InfoFrames.GREETING.TITLE}</h3>
-                                <p>${InfoFrames.GREETING.TEXT}</p>
+                                <h3>${InfoFrames.GREETING.title}</h3>
+                                <p>${InfoFrames.GREETING.text}</p>
                               </div>
                               <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
                             </div>`;
