@@ -1,9 +1,4 @@
-const VALID_ANSWER = 100;
-const FAST_ANSWER = 50;
-const SLOW_ANSWER = -FAST_ANSWER;
-const FAST_TIME = 10;
-const SLOW_TIME = 20;
-const SCORE_LENGTH = 10;
+import {Constants} from './data/game-data';
 
 export const getFinalScore = (playerScore, numberLivesLeft) => {
   let finalScoreResult = 0;
@@ -12,22 +7,22 @@ export const getFinalScore = (playerScore, numberLivesLeft) => {
     return false;
   }
 
-  if (playerScore.length < SCORE_LENGTH || numberLivesLeft < 0) {
+  if (playerScore.length < Constants.SCORE_LENGTH || numberLivesLeft < 0) {
     return -1;
   }
 
   playerScore.forEach((scoreItem) => {
     if (scoreItem.answerResult !== 0) {
-      finalScoreResult += VALID_ANSWER;
-      if (scoreItem.answerTime < FAST_TIME) {
-        finalScoreResult += FAST_ANSWER;
-      } else if (scoreItem.answerTime > SLOW_TIME) {
-        finalScoreResult += SLOW_ANSWER;
+      finalScoreResult += Constants.VALID_ANSWER;
+      if (scoreItem.answerTime < Constants.FAST_TIME) {
+        finalScoreResult += Constants.FAST_ANSWER;
+      } else if (scoreItem.answerTime > Constants.SLOW_TIME) {
+        finalScoreResult += Constants.SLOW_ANSWER;
       }
     }
   });
 
-  finalScoreResult += numberLivesLeft * FAST_ANSWER;
+  finalScoreResult += numberLivesLeft * Constants.FAST_ANSWER;
 
   return finalScoreResult;
 

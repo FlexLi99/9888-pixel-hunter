@@ -4,7 +4,7 @@ import {gamesResult} from '../game-stat';
 
 const BONUS = 50;
 
-const stats = () => {
+export default () => {
   const statsTemplate = `${getHeader(false)}
                           <div class="result">
                             <h1>${gamesResult[gamesResult.length - 1].gameStatus}</h1>
@@ -63,5 +63,3 @@ const stats = () => {
 
   return getTemplate;
 };
-
-export default stats;

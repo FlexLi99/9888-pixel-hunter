@@ -1,34 +1,24 @@
 import {scoreState} from './game-stat';
-
-const UNKNOWN = null;
-const WRONG = 0;
-const CORRECT = 1;
-const FAST = 0.5;
-const SLOW = 2;
+import {Constants} from './data/game-data';
 
 export const getScoreStat = () => {
   const setState = () => {
     let scoreList = ``;
 
-    for (let i = 0; i < scoreState.length; i++) {
-      switch (scoreState[i].answerIndic) {
-        case UNKNOWN:
-          scoreList += `<li class="stats__result stats__result--unknown"></li>`;
-          break;
-        case WRONG:
-          scoreList += `<li class="stats__result stats__result--wrong"></li>`;
-          break;
-        case CORRECT:
-          scoreList += `<li class="stats__result stats__result--correct"></li>`;
-          break;
-        case FAST:
-          scoreList += `<li class="stats__result stats__result--fast"></li>`;
-          break;
-        case SLOW:
-          scoreList += `<li class="stats__result stats__result--slow"></li>`;
-          break;
+    scoreState.forEach((item) => {
+      if (item.answerTime > 0 && item.answerTime < Constants.FAST_TIME) {
+        scoreList += `<li class="stats__result stats__result--fast"></li>`;
+      } else if (item.answerTime >= Constants.SLOW_TIME) {
+        scoreList += `<li class="stats__result stats__result--slow"></li>`;
+      } else if (item.answerTime >= Constants.FAST_TIME && item.answerTime < Constants.SLOW_TIME) {
+        scoreList += `<li class="stats__result stats__result--correct"></li>`;
+      } else if (item.answerTime === 0) {
+        scoreList += `<li class="stats__result stats__result--wrong"></li>`;
+      } else {
+        scoreList += `<li class="stats__result stats__result--unknown"></li>`;
       }
-    }
+    });
+
     return scoreList;
   };
 

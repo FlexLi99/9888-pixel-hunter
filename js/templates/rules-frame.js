@@ -3,11 +3,11 @@ import getHeader from './header';
 import {InfoFrames} from '../data/game-data';
 import {getNextFrame} from '../game-stat';
 
-const rules = () => {
+export default () => {
   const rulesTemplate = `${getHeader(false)}
                         <div class="rules">
-                          <h1 class="rules__title">${InfoFrames.rules.title}</h1>
-                          <p class="rules__description">${InfoFrames.rules.text}</p>
+                          <h1 class="rules__title">${InfoFrames.RULES.TITLE}</h1>
+                          <p class="rules__description">${InfoFrames.RULES.TEXT}</p>
                           <form class="rules__form">
                             <input class="rules__input" type="text" placeholder="Ваше Имя">
                             <button class="rules__button  continue" type="submit" disabled>Go!</button>
@@ -42,5 +42,3 @@ const rules = () => {
 
   return getTemplate;
 };
-
-export default rules;

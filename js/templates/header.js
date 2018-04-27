@@ -1,15 +1,15 @@
-import {getNextFrame, gameReset, gameStat} from '../game-stat';
+import {gameStat} from '../game-stat';
 
 const LIVE_VAL = 3;
 
 const getLives = () => {
   const liveStatTemplate = `
-    <h1 class="game__timer">${gameStat.time}</h1>
+    <h1 class="game__timer">${gameStat.TIME}</h1>
     <div class="game__lives">
-      ${new Array(gameStat.lives)
+      ${new Array(gameStat.LIVES)
       .fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`)
       .join(``)}
-      ${new Array(LIVE_VAL - gameStat.lives)
+      ${new Array(LIVE_VAL - gameStat.LIVES)
       .fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`)
       .join(``)}
     </div>`;
@@ -29,14 +29,6 @@ const getHeader = (statShow) => {
       ${statShow ? getLives() : ``}
     </header>`;
 
-  const backHandler = (event) => {
-    if (event.target.closest(`.header__back`)) {
-      gameReset();
-      getNextFrame(1);
-    }
-  };
-
-  document.addEventListener(`click`, backHandler);
   return headerTemplate;
 };
 

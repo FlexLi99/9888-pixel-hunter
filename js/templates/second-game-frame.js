@@ -1,24 +1,24 @@
 import frameCreate from '../frame-create';
 import getHeader from './header';
-import {errorAnswerHandler, validAnswerHandler} from '../game-stat';
+import {setValidAnswer, setErrorAnswer} from '../game-stat';
 import {Games, Service} from '../data/game-data';
 import {getScoreStat} from '../game-indicator';
 
-const secondGame = () => {
+export default () => {
   const secondGameTemplate = `${getHeader(true)}
                             <div class="game">
-                              <p class="game__task">${Games[`game-2`].desc}</p>
+                              <p class="game__task">${Games[`GAME-2`].DESC}</p>
                               <form class="game__content  game__content--wide">
-                                ${Games[`game-2`].answers.map((answer) => `
+                                ${Games[`GAME-2`].ANSWERS.map((answer) => `
                                   <div class="game__option">
-                                    <img src="${answer.imgSrc}" alt="${answer.imgAlt}" width="705" height="455">
+                                    <img src="${answer.IMGSRC}" alt="${answer.IMGALT}" width="705" height="455">
                                     <label class="game__answer  game__answer--photo">
-                                      <input name="${answer.questName}" type="radio" value="photo">
-                                      <span>${Service.photo}</span>
+                                      <input name="${answer.QUESTNAME}" type="radio" value="photo">
+                                      <span>${Service.PHOTO}</span>
                                     </label>
                                     <label class="game__answer  game__answer--wide  game__answer--paint">
-                                      <input name="${answer.questName}" type="radio" value="paint">
-                                      <span>${Service.paint}</span>
+                                      <input name="${answer.QUESTNAME}" type="radio" value="paint">
+                                      <span>${Service.PAINT}</span>
                                     </label>
                                   </div>
                                 `).join(``)}
@@ -33,10 +33,10 @@ const secondGame = () => {
   const answerHandler = (event) => {
     const target = event.target;
     if (target.closest(`.game__answer`) && target.checked) {
-      if (JSON.stringify(new Array(target.value)) !== JSON.stringify(Games[`game-2`].answers.map((answer) => answer.rightAnswer))) {
-        errorAnswerHandler();
+      if (JSON.stringify(new Array(target.value)) !== JSON.stringify(Games[`GAME-2`].ANSWERS.map((answer) => answer.RIGHTANSWER))) {
+        setErrorAnswer();
       } else {
-        validAnswerHandler();
+        setValidAnswer();
       }
     }
   };
@@ -45,5 +45,3 @@ const secondGame = () => {
 
   return getTemplate;
 };
-
-export default secondGame;

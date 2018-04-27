@@ -1,17 +1,17 @@
 import frameCreate from '../frame-create';
 import getHeader from './header';
-import {errorAnswerHandler, validAnswerHandler} from '../game-stat';
+import {setValidAnswer, setErrorAnswer} from '../game-stat';
 import {Games} from '../data/game-data';
 import {getScoreStat} from '../game-indicator';
 
-const thirdGame = () => {
+export default () => {
   const thirdGameTemplate = `${getHeader(true)}
                             <div class="game">
-                              <p class="game__task">${Games[`game-3`].desc}</p>
+                              <p class="game__task">${Games[`GAME-3`].DESC}</p>
                               <form class="game__content  game__content--triple">
-                              ${Games[`game-3`].answers.map((answer) => `
-                                <div class="game__option${answer.rightAnswer === `paint` ? ` game__option--selected` : ``}">
-                                  <img src="${answer.imgSrc}" alt="${answer.imgAlt}" width="304" height="455">
+                              ${Games[`GAME-3`].ANSWERS.map((answer) => `
+                                <div class="game__option${answer.RIGHTANSWER === `paint` ? ` game__option--selected` : ``}">
+                                  <img src="${answer.IMGSRC}" alt="${answer.IMGALT}" width="304" height="455">
                                 </div>
                                 `).join(``)}
                               </form>
@@ -27,9 +27,9 @@ const thirdGame = () => {
 
     if (target.closest(`.game__option`)) {
       if (target.matches(`.game__option--selected`)) {
-        validAnswerHandler();
+        setValidAnswer();
       } else {
-        errorAnswerHandler();
+        setErrorAnswer();
       }
     }
   };
@@ -38,5 +38,3 @@ const thirdGame = () => {
 
   return getTemplate;
 };
-
-export default thirdGame;

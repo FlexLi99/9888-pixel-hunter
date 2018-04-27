@@ -1,20 +1,20 @@
 //  Объект структуры данных для информационных фреймов
 
 export const InfoFrames = {
-  intro: {
-    text: `Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.`
+  INTRO: {
+    TEXT: `Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.`
   },
-  greeting: {
-    title: `Лучшие художники-фотореалисты бросают&nbsp;тебе&nbsp;вызов!`,
-    text: `Правила игры просты.<br>
+  GREETING: {
+    TITLE: `Лучшие художники-фотореалисты бросают&nbsp;тебе&nbsp;вызов!`,
+    TEXT: `Правила игры просты.<br>
             Нужно отличить рисунок&nbsp;от фотографии и сделать выбор.<br>
             Задача кажется тривиальной, но не думай, что все так просто.<br>
             Фотореализм обманчив и коварен.<br>
             Помни, главное — смотреть очень внимательно.`
   },
-  rules: {
-    title: `Правила`,
-    text: `Угадай 10 раз для каждого изображения фото <img
+  RULES: {
+    TITLE: `Правила`,
+    TEXT: `Угадай 10 раз для каждого изображения фото <img
             src="img/photo_icon.png" width="16" height="16"> или рисунок <img
             src="img/paint_icon.png" width="16" height="16" alt="">.<br>
             Фотографиями или рисунками могут быть оба изображения.<br>
@@ -28,71 +28,79 @@ export const InfoFrames = {
 //  Объект структуры данных для начальных параметров игры
 
 export const InitialState = Object.freeze({
-  gameFrames: 0,
-  currentFrame: 0,
-  allFrames: 0,
-  time: 20,
-  lives: 3,
-  fastPt: 0,
-  slowPt: 0
+  ALL_FRAMES: 14,
+  GAME_FRAMES: 10,
+  CURRENT_FRAME: 0,
+  TIME: 15,
+  LIVES: 3
+});
+
+export const Constants = Object.freeze({
+  FAST_TIME: 10,
+  SLOW_TIME: 20,
+  INFO_FRAMES: 3,
+  VALID_ANSWER: 100,
+  FAST_ANSWER: 50,
+  SLOW_ANSWER: -50,
+  SCORE_LENGTH: 10
 });
 
 //  Объект структуры данных для фреймов с играми
 
 export const Games = {
-  'game-1': {
-    desc: `Угадайте для каждого изображения фото или рисунок?`,
-    answers: [
+  'GAME-1': {
+    DESC: `Угадайте для каждого изображения фото или рисунок?`,
+    ANSWERS: [
       {
-        imgSrc: `https://k42.kn3.net/CF42609C8.jpg`,
-        imgAlt: `Option 1`,
-        questName: `question1`,
-        rightAnswer: `paint`
+        IMGSRC: `https://k42.kn3.net/CF42609C8.jpg`,
+        IMGALT: `Option 1`,
+        QUESTNAME: `question1`,
+        RIGHTANSWER: `paint`
       },
       {
-        imgSrc: `http://i.imgur.com/1KegWPz.jpg`,
-        imgAlt: `Option 2`,
-        questName: `question2`,
-        rightAnswer: `photo`
+        IMGSRC: `http://i.imgur.com/1KegWPz.jpg`,
+        IMGALT: `Option 2`,
+        QUESTNAME: `question2`,
+        RIGHTANSWER: `photo`
       }
     ]
   },
-  'game-2': {
-    desc: `Угадай, фото или рисунок?`,
-    answers: [
+  'GAME-2': {
+    DESC: `Угадай, фото или рисунок?`,
+    ANSWERS: [
       {
-        imgSrc: `https://k42.kn3.net/D2F0370D6.jpg`,
-        imgAlt: `Option 1`,
-        questName: `question1`,
-        rightAnswer: `paint`,
+        IMGSRC: `https://k42.kn3.net/D2F0370D6.jpg`,
+        IMGALT: `Option 1`,
+        QUESTNAME: `question1`,
+        RIGHTANSWER: `paint`,
       }
     ]
   },
-  'game-3': {
-    desc: `Найдите рисунок среди изображений`,
-    answers: [
+  'GAME-3': {
+    DESC: `Найдите рисунок среди изображений`,
+    ANSWERS: [
       {
-        imgSrc: `https://k32.kn3.net/5C7060EC5.jpg`,
-        imgAlt: `Option 1`,
-        rightAnswer: `paint`
+        IMGSRC: `https://k32.kn3.net/5C7060EC5.jpg`,
+        IMGALT: `Option 1`,
+        RIGHTANSWER: `paint`
       },
       {
-        imgSrc: `https://i.imgur.com/DiHM5Zb.jpg`,
-        imgAlt: `Option 1`,
-        rightAnswer: `photo`
+        IMGSRC: `https://i.imgur.com/DiHM5Zb.jpg`,
+        IMGALT: `Option 1`,
+        RIGHTANSWER: `photo`
       },
       {
-        imgSrc: `http://i.imgur.com/DKR1HtB.jpg`,
-        imgAlt: `Option 1`,
-        rightAnswer: `photo`
+        IMGSRC: `http://i.imgur.com/DKR1HtB.jpg`,
+        IMGALT: `Option 1`,
+        RIGHTANSWER: `photo`
       }
     ]
   }
 };
 
 export const Service = {
-  paint: `Рисунок`,
-  photo: `Фото`,
-  win: `Победа!`,
-  fail: `Вы проиграли :'(`
+  PAINT: `Рисунок`,
+  PHOTO: `Фото`,
+  WIN: `Победа!`,
+  FAIL: `Вы проиграли :'(`
 };
