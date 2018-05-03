@@ -1,2 +1,3 @@
-import {frameChange} from './frame-change';
-frameChange();
+import MainApp from './main-app';
+
+MainApp.showIntro();

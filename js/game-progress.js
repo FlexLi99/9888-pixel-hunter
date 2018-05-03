@@ -1,11 +1,14 @@
-import {scoreState} from './game-stat';
-import {Constants} from './data/game-data';
+import {Constants} from './data/game-state';
 
-export const getScoreStat = () => {
-  const setState = () => {
+export default class GameProgress {
+  constructor(state) {
+    this.state = state;
+  }
+
+  setProgress() {
     let scoreList = ``;
 
-    scoreState.forEach((item) => {
+    this.state.PROGRESS.forEach((item) => {
       if (item.answerTime > 0 && item.answerTime < Constants.FAST_TIME) {
         scoreList += `<li class="stats__result stats__result--fast"></li>`;
       } else if (item.answerTime >= Constants.SLOW_TIME) {
@@ -20,13 +23,15 @@ export const getScoreStat = () => {
     });
 
     return scoreList;
-  };
+  }
 
-  const getScoreTemplate = `
-    <ul class="stats">
-      ${setState()}
-    </ul>
-  `;
+  getProgress() {
+    return `<ul class="stats">
+              ${this.setProgress()}
+            </ul>`;
+  }
 
-  return getScoreTemplate;
-};
+  update() {
+    this.getProgress();
+  }
+}

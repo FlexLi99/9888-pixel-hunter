@@ -1,11 +1,7 @@
-import getFooter from './templates/footer';
+export default (template = ``, tag = `div`) => {
+  const frameContainer = document.createElement(tag);
 
-const frameCreate = (frameString) => {
-  const frameContainer = document.createElement(`div`);
-
-  frameContainer.innerHTML = frameString + getFooter;
+  frameContainer.innerHTML = template;
 
   return frameContainer;
 };
-
-export default frameCreate;

@@ -1,7 +1,7 @@
-import {frameChange} from './frame-change';
-import {InitialState, Service, Constants} from './data/game-data';
-import {getFinalScore} from './final-score';
-import {getScoreStat} from './game-indicator';
+// import {frameChange} from './frame-change';
+// import {InitialState, Service, Constants} from './data/game-data';
+// import {getFinalScore} from './final-score';
+// import {getScoreStat} from './game-indicator';
 
 const WIN = Service.WIN;
 const FAIL = Service.FAIL;
