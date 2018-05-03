@@ -3,5 +3,5 @@ export default (template = ``, tag = `div`) => {
 
   frameContainer.innerHTML = template;
 
-  return frameContainer;
+  return frameContainer.firstChild;
 };

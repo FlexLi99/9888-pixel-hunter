@@ -1,10 +1,9 @@
 export const InitialState = Object.freeze({
-  ALL_FRAMES: 14,
   GAME_FRAMES: 10,
   CURRENT_FRAME: 0,
   TIME: 15,
   LIVES: 3,
-  PROGRESS: new Array(10).fill({answerResult: null, answerTime: null})
+  PROGRESS: []
 });
 
 export const Constants = Object.freeze({
@@ -14,5 +13,8 @@ export const Constants = Object.freeze({
   VALID_ANSWER: 100,
   FAST_ANSWER: 50,
   SLOW_ANSWER: -50,
-  SCORE_LENGTH: 10
+  SCORE_LENGTH: InitialState.GAME_FRAMES,
+  BONUS: 50
 });
+
+export const gamesResult = [];

@@ -3,18 +3,24 @@ import SecondGameView from './views/second-game-view';
 import ThirdGameView from './views/third-game-view';
 import HeaderView from './views/header-view';
 import FooterView from './views/footer-view';
+import {Service} from './data/game-data';
+import MainApp from './main-app';
+
+
+const WIN = Service.WIN;
+const FAIL = Service.FAIL;
 
 export default class GameApp {
   constructor(model) {
     this.model = model;
-    this.header = new HeaderView(this.model.state);
+    this.header = new HeaderView(true, this.model);
     this.content = this.chooseGame();
     this.footer = new FooterView();
 
     this.view = document.createElement(`div`);
     this.view.appendChild(this.header.element);
     this.view.appendChild(this.content.element);
-    this.view.appendChild(this.footer.element.firstChild);
+    this.view.appendChild(this.footer.element);
   }
 
   get element() {
@@ -46,31 +52,32 @@ export default class GameApp {
 
   answer(answer) {
     if (answer) {
-      console.log(true);
-    } else {
-      console.log(false);
-      this.model.die();
-      this.model.nextGame({answerResult: 0, answerTime: 0});
+      this.model.setScore({answerResult: 1, answerTime: this.model.state.TIME});
+
+      if (this.model.hasFinish()) {
+        this.model.setGameResult(WIN);
+        MainApp.showStats();
+      }
+
+      this.model.nextGame();
       this.changeGame();
-      // if (gameStat.LIVES < 0) {
-      //   setGameResult(FAIL);
-      //   frameChange(gameStat.ALL_FRAMES - 1);
-      // } else if (gameStat.CURRENT_FRAME + 1 === gameStat.ALL_FRAMES - 1) {
-      //   setGameResult(WIN);
-      //   this.model.nextGame({answerResult: 0, answerTime: 0});
-      // } else {
-      //   this.model.nextGame({answerResult: 0, answerTime: 0});
-      // }
+    } else {
+      this.model.die();
+      this.model.setScore({answerResult: 0, answerTime: 0});
+
+      if (this.model.isFail()) {
+        this.model.setGameResult(FAIL);
+        MainApp.showStats();
+
+      } else if (this.model.hasFinish()) {
+        this.model.setGameResult(WIN);
+        MainApp.showStats();
+
+      } else {
+        this.changeGame();
+        this.model.nextGame();
+      }
     }
-  }
-
-  headerUpdate() {
-    const newHeader = new HeaderView(this.model.state);
-
-    console.log(this.view, newHeader.element.firstChild, this.header.element);
-
-    this.view.replaceChild(newHeader.element, this.header.element);
-    this.header = newHeader;
   }
 
   changeGame() {
@@ -78,8 +85,16 @@ export default class GameApp {
     this.changeContentView();
   }
 
+  headerUpdate() {
+    const newHeader = new HeaderView(true, this.model);
+
+    this.view.replaceChild(newHeader.element, this.header.element);
+    this.header = newHeader;
+  }
+
   changeContentView() {
-    this.view.replaceChild(this.chooseGame().element, this.content.element);
+    this.view.removeChild(this.content.element);
     this.content = this.chooseGame();
+    this.view.insertBefore(this.content.element, this.footer.element);
   }
 }

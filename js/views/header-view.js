@@ -1,17 +1,14 @@
 import AbstractView from '../abstract-view';
-//  import {gameStat, gameReset, getNextFrame} from '../game-stat';
+import MainApp from '../main-app';
 
 const LIVE_VAL = 3;
-// const getLives = (state) => {
-//   for (const live of LIVE_VAL) {
-//     return
-//   }
-// }
 
 export default class HeaderView extends AbstractView {
-  constructor(state) {
+  constructor(stateVis, model) {
     super();
-    this.state = state;
+    this.visible = stateVis;
+    this.model = model;
+    this.state = model.state;
   }
 
   gameState() {
@@ -35,8 +32,13 @@ export default class HeaderView extends AbstractView {
                   <img src="img/logo_small.svg" width="101" height="44">
                 </button>
               </div>
-              ${this.state ? this.gameState() : ``}
+              ${this.visible ? this.gameState() : ``}
             </header>`;
+  }
+
+  onRestart() {
+    MainApp.showGreeting();
+    this.model.restart();
   }
 
   bind() {
@@ -44,8 +46,7 @@ export default class HeaderView extends AbstractView {
 
     const backHandler = (event) => {
       if (event.target.closest(`.header__back`)) {
-        // gameReset();
-        // getNextFrame(1);
+        this.onRestart();
       }
     };
 
