@@ -12,6 +12,18 @@ export default class GameModel {
     return this._state;
   }
 
+  get isFail() {
+    return this._state.LIVES < 0;
+  }
+
+  get hasFinish() {
+    return this._state.CURRENT_FRAME + 1 === this._state.GAME_FRAMES;
+  }
+
+  getNextGame() {
+    ++this._state.CURRENT_FRAME;
+  }
+
   progressInit() {
     this._state.PROGRESS = new Array(InitialState.GAME_FRAMES).fill({answerResult: null, answerTime: null});
   }
@@ -20,9 +32,6 @@ export default class GameModel {
     this._state.PROGRESS[this._state.CURRENT_FRAME] = gameResult;
   }
 
-  nextGame() {
-    ++this._state.CURRENT_FRAME;
-  }
 
   setScore(gameResult) {
     this.setProgress(gameResult);
@@ -47,16 +56,7 @@ export default class GameModel {
     this._state.LIVES = this._state.LIVES - 1;
   }
 
-  isFail() {
-    return (this._state.LIVES < 0) ? true : false;
-  }
-
   restart() {
     this._state = Object.assign({}, InitialState);
   }
-
-  hasFinish() {
-    return (this._state.CURRENT_FRAME + 1 === this._state.GAME_FRAMES) ? true : false;
-  }
-
 }

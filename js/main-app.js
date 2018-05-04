@@ -5,8 +5,13 @@ import StatsView from './views/stats-view';
 import HeaderView from './views/header-view';
 import FooterView from './views/footer-view';
 import GameApp from './game-app';
-import changeView from './change-view';
 import GameModel from './data/game-model';
+
+const mainFrame = document.querySelector(`main.central`);
+const changeView = (view) => {
+  mainFrame.innerHTML = ``;
+  mainFrame.appendChild(view);
+};
 
 export default class MainApp {
   static showIntro() {

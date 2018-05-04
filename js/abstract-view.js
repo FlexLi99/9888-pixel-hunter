@@ -1,4 +1,10 @@
-import frameCreate from './frame-create';
+const frameCreate = (template = ``, tag = `div`) => {
+  const frameContainer = document.createElement(tag);
+
+  frameContainer.innerHTML = template;
+
+  return frameContainer.firstChild;
+};
 
 export default class AbstractView {
   constructor() {

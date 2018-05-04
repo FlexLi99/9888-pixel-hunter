@@ -45,37 +45,37 @@ export default class GameApp {
     };
     const gameView = games[shuffling(0, 2)];
 
-    gameView.onAnswer = this.answer.bind(this);
+    gameView.onAnswer = this.getAnswer.bind(this);
 
     return gameView;
   }
 
-  answer(answer) {
+  getAnswer(answer) {
     if (answer) {
       this.model.setScore({answerResult: 1, answerTime: this.model.state.TIME});
 
-      if (this.model.hasFinish()) {
+      if (this.model.hasFinish) {
         this.model.setGameResult(WIN);
         MainApp.showStats();
       }
 
-      this.model.nextGame();
+      this.model.getNextGame();
       this.changeGame();
     } else {
       this.model.die();
       this.model.setScore({answerResult: 0, answerTime: 0});
 
-      if (this.model.isFail()) {
+      if (this.model.isFail) {
         this.model.setGameResult(FAIL);
         MainApp.showStats();
 
-      } else if (this.model.hasFinish()) {
+      } else if (this.model.hasFinish) {
         this.model.setGameResult(WIN);
         MainApp.showStats();
 
       } else {
         this.changeGame();
-        this.model.nextGame();
+        this.model.getNextGame();
       }
     }
   }
