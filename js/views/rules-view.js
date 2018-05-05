@@ -37,7 +37,7 @@ export default class IntroView extends AbstractView {
     };
     const submitHandler = (evt) => {
       evt.preventDefault();
-      MainApp.startGame();
+      MainApp.showGameScreen();
     };
 
     rulesInput.addEventListener(`input`, inputHandler);

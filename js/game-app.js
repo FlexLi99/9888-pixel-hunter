@@ -27,10 +27,6 @@ export default class GameApp {
     return this.view;
   }
 
-  startGame() {
-
-  }
-
   chooseGame() {
     const games = [
       new FirstGameView(this.model.state),
