@@ -11,7 +11,7 @@ export default class HeaderView extends AbstractView {
     this.state = model.state;
   }
 
-  gameState() {
+  getGameState() {
     return `
     <h1 class="game__timer">${this.state.TIME}</h1>
     <div class="game__lives">
@@ -32,7 +32,7 @@ export default class HeaderView extends AbstractView {
                   <img src="img/logo_small.svg" width="101" height="44">
                 </button>
               </div>
-              ${this.visible ? this.gameState() : ``}
+              ${this.visible ? this.getGameState() : ``}
             </header>`;
   }
 
