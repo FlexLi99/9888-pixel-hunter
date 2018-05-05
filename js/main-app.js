@@ -49,7 +49,7 @@ export default class MainApp {
     changeView(template);
   }
 
-  static startGame() {
+  static showGameScreen() {
     const gameFrame = new GameApp(new GameModel());
 
     changeView(gameFrame.element);
