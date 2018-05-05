@@ -1,4 +1,4 @@
-import {Constants} from './data/game-data';
+import {Constants} from './data/game-state';
 
 export const getFinalScore = (playerScore, numberLivesLeft) => {
   let finalScoreResult = 0;
