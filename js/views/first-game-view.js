@@ -1,26 +1,27 @@
-import {Games, Service} from '../data/game-data';
+import {Service} from '../data/game-data';
 import AbstractView from '../abstract-view';
 import GameProgress from '../game-progress';
 
 export default class FirstGameView extends AbstractView {
-  constructor(data) {
+  constructor(data, game) {
     super();
+    this.game = game;
     this.progress = new GameProgress(data);
   }
 
   get template() {
     return `<div class="game">
-              <p class="game__task">${Games[`GAME-1`].desc}</p>
+              <p class="game__task">${this.game.question}</p>
               <form class="game__content">
-                ${Games[`GAME-1`].answers.map((answer) => `
+                ${this.game.answers.map((answer, index) => `
                   <div class="game__option">
-                    <img src="${answer.src}" alt="${answer.alt}" width="468" height="458">
+                    <img src="${answer.image.url}" alt="" width="${answer.image.width}" height="${answer.image.height}">
                     <label class="game__answer game__answer--photo">
-                      <input name="${answer.question}" type="radio" value="photo">
+                      <input name="question${index}" type="radio" value="photo">
                       <span>${Service.PHOTO}</span>
                     </label>
                     <label class="game__answer game__answer--paint">
-                      <input name="${answer.question}" type="radio" value="paint">
+                      <input name="question${index}" type="radio" value="painting">
                       <span>${Service.PAINT}</span>
                     </label>
                   </div>
@@ -40,7 +41,7 @@ export default class FirstGameView extends AbstractView {
     const answerHandler = () => {
       const answers = [...answersInput];
       const userChoices = answers.filter((answer) => answer.checked);
-      const rightAnswer = JSON.stringify(Games[`GAME-1`].answers.map((answer) => answer.answer));
+      const rightAnswer = JSON.stringify(this.game.answers.map((answer) => answer.type));
 
       if (userChoices.length === 2) {
         if (JSON.stringify(userChoices.map((answer) => answer.value)) !== rightAnswer) {

@@ -6,6 +6,7 @@ import HeaderView from './views/header-view';
 import FooterView from './views/footer-view';
 import GameApp from './game-app';
 import GameModel from './data/game-model';
+import DataLoad from './data/server-data';
 
 const mainFrame = document.querySelector(`main.central`);
 const changeView = (view) => {
@@ -14,6 +15,10 @@ const changeView = (view) => {
 };
 
 export default class MainApp {
+  static startApp() {
+    DataLoad.getServerData().then(MainApp.showIntro);
+  }
+
   static showIntro() {
     const intro = new IntroView();
     const footer = new FooterView();

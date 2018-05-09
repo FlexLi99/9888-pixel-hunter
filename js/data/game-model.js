@@ -24,6 +24,10 @@ export default class GameModel {
     ++this._state.CURRENT_FRAME;
   }
 
+  getCurrentGame() {
+    return this._state.CURRENT_FRAME;
+  }
+
   progressInit() {
     this._state.PROGRESS = new Array(InitialState.GAME_FRAMES).fill({answerResult: null, answerTime: null});
   }
