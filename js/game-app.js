@@ -28,7 +28,7 @@ export default class GameApp {
   }
 
   chooseGame() {
-    const gamesCreating = () => {
+    const createView = () => {
       const games = [];
 
       for (const game of Games) {
@@ -48,7 +48,7 @@ export default class GameApp {
       return games[this.model.getCurrentGame()];
     };
 
-    const gameView = gamesCreating();
+    const gameView = createView();
 
     gameView.onAnswer = this.getAnswer.bind(this);
 
