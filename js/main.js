@@ -1,3 +1,3 @@
 import MainApp from './main-app';
 
-MainApp.showIntro();
+MainApp.startApp();

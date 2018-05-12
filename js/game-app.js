@@ -3,7 +3,7 @@ import SecondGameView from './views/second-game-view';
 import ThirdGameView from './views/third-game-view';
 import HeaderView from './views/header-view';
 import FooterView from './views/footer-view';
-import {Service} from './data/game-data';
+import {Service, QuestionType, Games} from './data/game-data';
 import MainApp from './main-app';
 
 
@@ -28,18 +28,27 @@ export default class GameApp {
   }
 
   chooseGame() {
-    const games = [
-      new FirstGameView(this.model.state),
-      new SecondGameView(this.model.state),
-      new ThirdGameView(this.model.state)
-    ];
-    const shuffling = (min, max) => {
-      let random = min + Math.random() * (max + 1 - min);
+    const createView = () => {
+      const games = [];
 
-      random = Math.floor(random);
-      return random;
+      for (const game of Games) {
+        switch (game.type) {
+          case QuestionType.TINDER_LIKE:
+            games.push(new SecondGameView(this.model.state, game));
+            break;
+          case QuestionType.TWO_OF_TWO:
+            games.push(new FirstGameView(this.model.state, game));
+            break;
+          case QuestionType.ONE_OF_THREE:
+            games.push(new ThirdGameView(this.model.state, game));
+            break;
+        }
+      }
+
+      return games[this.model.getCurrentGame()];
     };
-    const gameView = games[shuffling(0, 2)];
+
+    const gameView = createView();
 
     gameView.onAnswer = this.getAnswer.bind(this);
 
@@ -53,10 +62,10 @@ export default class GameApp {
       if (this.model.hasFinish) {
         this.model.setGameResult(WIN);
         MainApp.showStats();
+      } else {
+        this.model.getNextGame();
+        this.changeGame();
       }
-
-      this.model.getNextGame();
-      this.changeGame();
     } else {
       this.model.die();
       this.model.setScore({answerResult: 0, answerTime: 0});
@@ -70,8 +79,8 @@ export default class GameApp {
         MainApp.showStats();
 
       } else {
-        this.changeGame();
         this.model.getNextGame();
+        this.changeGame();
       }
     }
   }

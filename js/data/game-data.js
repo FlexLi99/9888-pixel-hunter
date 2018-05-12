@@ -25,58 +25,15 @@ export const InfoFrames = {
   }
 };
 
+export const QuestionType = {
+  TWO_OF_TWO: `two-of-two`,
+  TINDER_LIKE: `tinder-like`,
+  ONE_OF_THREE: `one-of-three`
+};
+
 //  Объект структуры данных для фреймов с играми
 
-export const Games = {
-  'GAME-1': {
-    desc: `Угадайте для каждого изображения фото или рисунок?`,
-    answers: [
-      {
-        src: `https://k42.kn3.net/CF42609C8.jpg`,
-        alt: `Option 1`,
-        question: `question1`,
-        answer: `paint`
-      },
-      {
-        src: `http://i.imgur.com/1KegWPz.jpg`,
-        alt: `Option 2`,
-        question: `question2`,
-        answer: `photo`
-      }
-    ]
-  },
-  'GAME-2': {
-    desc: `Угадай, фото или рисунок?`,
-    answers: [
-      {
-        src: `https://k42.kn3.net/D2F0370D6.jpg`,
-        alt: `Option 1`,
-        question: `question1`,
-        answer: `paint`,
-      }
-    ]
-  },
-  'GAME-3': {
-    desc: `Найдите рисунок среди изображений`,
-    answers: [
-      {
-        src: `https://k32.kn3.net/5C7060EC5.jpg`,
-        alt: `Option 1`,
-        answer: `paint`
-      },
-      {
-        src: `https://i.imgur.com/DiHM5Zb.jpg`,
-        alt: `Option 1`,
-        answer: `photo`
-      },
-      {
-        src: `http://i.imgur.com/DKR1HtB.jpg`,
-        alt: `Option 1`,
-        answer: `photo`
-      }
-    ]
-  }
-};
+export const Games = [];
 
 export const Service = {
   PAINT: `Рисунок`,
